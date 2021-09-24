@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:whosapp/Pages/home.dart';
 import 'package:whosapp/Pages/login.dart';
+import 'package:whosapp/Services/auth_services.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -37,7 +39,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: StreamBuilder(
+          stream: AuthServices().onChangedUser,
+          builder: (context, snapshot) {
+            return snapshot.data == null ? Login() : HomePage();
+          }),
     );
   }
 }

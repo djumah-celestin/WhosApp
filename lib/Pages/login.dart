@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whosapp/Configs/functions.dart';
 import 'package:whosapp/Pages/register.dart';
+import 'package:whosapp/Services/auth_services.dart';
 import 'package:whosapp/Widgets/textfield.dart';
 
 class Login extends StatefulWidget {
@@ -11,7 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var emailController = TextEditingController();
   var pwdController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
@@ -64,7 +65,6 @@ class _LoginState extends State<Login> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          
           _sizedBox(heigth / 25),
           CTextfiel(
             inputAction: TextInputAction.next,
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
             controller: pwdController,
             inputAction: TextInputAction.done,
             prefix: Icon(Icons.vpn_key),
-            obscureText: true,
+            obscureText: false,
             keybardType: TextInputType.visiblePassword,
             hint: 'Entrez votre mot de passe',
           ),
@@ -120,7 +120,10 @@ class _LoginState extends State<Login> {
                 height: heigth / 40,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await AuthServices()
+                        .signIn(emailController.text, pwdController.text);
+                  },
                   child: Text('Connexion',
                       style: TextStyle(
                           fontSize: heigth / 25, color: Colors.white)),

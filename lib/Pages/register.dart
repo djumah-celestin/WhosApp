@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whosapp/Services/auth_services.dart';
 import 'package:whosapp/Widgets/textfield.dart';
 
 class Register extends StatefulWidget {
@@ -48,7 +49,7 @@ class _RegisterState extends State<Register> {
               bottomRight: Radius.circular(heigth / 15))),
       child: Center(
           child: Text(
-        "WhosApp Enregistrement",
+        "WhosApp Enrregistrement",
         style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: heigth / 25,
@@ -68,8 +69,8 @@ class _RegisterState extends State<Register> {
           CTextfiel(
             inputAction: TextInputAction.next,
             controller: nameController,
-            prefix: Icon(Icons.email),
-            keybardType: TextInputType.text,
+            prefix: Icon(Icons.border_color),
+            keybardType: TextInputType.name,
             hint: 'Entrez votre nom',
           ),
           _sizedBox(heigth / 25),
@@ -133,7 +134,11 @@ class _RegisterState extends State<Register> {
                 ],
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await AuthServices().signUp(nameController.text,
+                        emailController.text, pwdController.text);
+                    Navigator.pop(context);
+                  },
                   child: Text('Inscription',
                       style: TextStyle(
                           fontSize: heigth / 25, color: Colors.white)),
