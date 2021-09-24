@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:whosapp/Configs/functions.dart';
+import 'package:whosapp/Pages/register.dart';
 import 'package:whosapp/Widgets/textfield.dart';
 
 class Login extends StatefulWidget {
@@ -9,20 +11,27 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var emailController = TextEditingController();
   var pwdController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _headContainer(_height, _width),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: _middleContainer(_height, _width),
-            ),
-          ],
+        child: Container(
+          height: _height,
+          width: _width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _headContainer(_height, _width),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: _middleContainer(_height, _width),
+              ),
+              _bottomContainer(_height, _width),
+            ],
+          ),
         ),
       ),
     );
@@ -30,7 +39,7 @@ class _LoginState extends State<Login> {
 
   Container _headContainer(double heigth, double width) {
     return Container(
-      height: heigth / 4,
+      height: heigth / 3,
       width: width,
       decoration: BoxDecoration(
           color: Colors.purple[400],
@@ -39,10 +48,10 @@ class _LoginState extends State<Login> {
               bottomRight: Radius.circular(heigth / 15))),
       child: Center(
           child: Text(
-        "WhosApp Login",
+        "WhosApp Connexion",
         style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: heigth / 22,
+            fontSize: heigth / 25,
             color: Colors.white),
       )),
     );
@@ -55,6 +64,8 @@ class _LoginState extends State<Login> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          
+          _sizedBox(heigth / 25),
           CTextfiel(
             inputAction: TextInputAction.next,
             controller: emailController,
@@ -71,6 +82,56 @@ class _LoginState extends State<Login> {
             keybardType: TextInputType.visiblePassword,
             hint: 'Entrez votre mot de passe',
           ),
+        ],
+      ),
+    );
+  }
+
+  Container _bottomContainer(double heigth, double width) {
+    return Container(
+      height: heigth / 3,
+      width: width,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [Icon(Icons.face), Icon(Icons.g_translate)],
+          ),
+          SizedBox(
+            height: heigth / 40,
+          ),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Avez vous déjà un compte ?"),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        navigateToNextPage(context, Register());
+                      },
+                      child: Text("Inscription"))
+                ],
+              ),
+              SizedBox(
+                height: heigth / 40,
+              ),
+              TextButton(
+                  onPressed: () {},
+                  child: Text('Connexion',
+                      style: TextStyle(
+                          fontSize: heigth / 25, color: Colors.white)),
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: heigth / 10)))),
+            ],
+          )
         ],
       ),
     );
