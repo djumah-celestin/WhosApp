@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "776289852390",
+    "project_id": "whosapp-6420c",
+    "storage_bucket": "whosapp-6420c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776289852390:android:bc8f4b311500e5497a5427",
+        "android_client_info": {
+          "package_name": "app.whosApp.codelab.whosapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776289852390-atgpd4kbrc47k0h4cu0qut6jsluhag1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACtIWSOBx6RZkS-lJaI1t1hSH9qcpeJs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776289852390-atgpd4kbrc47k0h4cu0qut6jsluhag1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
