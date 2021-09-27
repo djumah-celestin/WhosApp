@@ -95,7 +95,47 @@ class _LoginState extends State<Login> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [Icon(Icons.face), Icon(Icons.g_translate)],
+            children: [
+              Card(
+                elevation: 10.0,
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(heigth / 25)),
+                child: CircleAvatar(
+                  radius: heigth / 40,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage("assets/images/google2.jpg"),
+                ),
+              ),
+              Card(
+                elevation: 10.0,
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(heigth / 25)),
+                child: CircleAvatar(
+                  radius: heigth / 40,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage("assets/images/apple2.png"),
+                ),
+              ),
+              Card(
+                elevation: 10.0,
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(heigth / 25)),
+                child: CircleAvatar(
+                  radius: heigth / 40,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage("assets/images/facebook2.jpg"),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: heigth / 40,
