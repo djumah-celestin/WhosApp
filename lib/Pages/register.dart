@@ -40,21 +40,28 @@ class _RegisterState extends State<Register> {
 
   Container _headContainer(double heigth, double width) {
     return Container(
-      height: heigth / 4,
+      height: heigth / 3.5,
       width: width,
       decoration: BoxDecoration(
           color: Colors.purple[400],
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(heigth / 15),
-              bottomRight: Radius.circular(heigth / 15))),
-      child: Center(
-          child: Text(
-        "WhosApp Enrregistrement",
-        style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: heigth / 25,
-            color: Colors.white),
-      )),
+          ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/msg2.png"),
+                fit: BoxFit.contain,
+              ),
+              color: Colors.purple[400],
+            ),
+            height: heigth / 4,
+            width: width / 2.5,
+          ),
+        ],
+      ),
     );
   }
 

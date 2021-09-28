@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var emailController = TextEditingController();
   var pwdController = TextEditingController();
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +23,19 @@ class _LoginState extends State<Login> {
         child: Container(
           height: _height,
           width: _width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Stack(
             children: [
-              _headContainer(_height, _width),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: _middleContainer(_height, _width),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _headContainer(_height, _width),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: _middleContainer(_height, _width),
+                  ),
+                  _bottomContainer(_height, _width),
+                ],
               ),
-              _bottomContainer(_height, _width),
             ],
           ),
         ),
@@ -40,21 +45,27 @@ class _LoginState extends State<Login> {
 
   Container _headContainer(double heigth, double width) {
     return Container(
-      height: heigth / 3,
+      height: heigth / 3.5,
       width: width,
       decoration: BoxDecoration(
-          color: Colors.purple[400],
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(heigth / 15),
-              bottomRight: Radius.circular(heigth / 15))),
-      child: Center(
-          child: Text(
-        "WhosApp Connexion",
-        style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: heigth / 25,
-            color: Colors.white),
-      )),
+        color: Colors.purple[400],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/msg2.png"),
+                fit: BoxFit.contain,
+              ),
+              color: Colors.purple[400],
+            ),
+            height: heigth / 4,
+            width: width / 2.5,
+          ),
+        ],
+      ),
     );
   }
 
@@ -65,6 +76,11 @@ class _LoginState extends State<Login> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            "Connectez - vous",
+            style:
+                TextStyle(fontWeight: FontWeight.w600, fontSize: heigth / 35),
+          ),
           _sizedBox(heigth / 25),
           CTextfiel(
             inputAction: TextInputAction.next,
@@ -78,7 +94,15 @@ class _LoginState extends State<Login> {
             controller: pwdController,
             inputAction: TextInputAction.done,
             prefix: Icon(Icons.vpn_key),
-            obscureText: false,
+            suffix: IconButton(
+                icon:
+                    Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                }),
+            obscureText: _isObscure,
             keybardType: TextInputType.visiblePassword,
             hint: 'Entrez votre mot de passe',
           ),
@@ -93,6 +117,64 @@ class _LoginState extends State<Login> {
       width: width,
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Avez vous déjà un compte ?"),
+              SizedBox(
+                width: 10.0,
+              ),
+              TextButton(
+                  onPressed: () {
+                    navigateToNextPage(context, Register());
+                  },
+                  child: Text("Inscription"))
+            ],
+          ),
+          SizedBox(
+            height: heigth / 70,
+          ),
+          TextButton(
+              onPressed: () async {
+                await AuthServices()
+                    .signIn(emailController.text, pwdController.text);
+              },
+              child: Text('Connexion',
+                  style: TextStyle(fontSize: heigth / 25, color: Colors.white)),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.purple),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: heigth / 10)))),
+          SizedBox(height: heigth / 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width / 20),
+                  child: Divider(
+                    color: Colors.black,
+                    thickness: 0.5,
+                  ),
+                ),
+              ),
+              Text("Ou"),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width / 20),
+                  child: Divider(
+                    color: Colors.black,
+                    thickness: 0.5,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: heigth / 40,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -140,41 +222,6 @@ class _LoginState extends State<Login> {
           SizedBox(
             height: heigth / 40,
           ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Avez vous déjà un compte ?"),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        navigateToNextPage(context, Register());
-                      },
-                      child: Text("Inscription"))
-                ],
-              ),
-              SizedBox(
-                height: heigth / 40,
-              ),
-              TextButton(
-                  onPressed: () async {
-                    await AuthServices()
-                        .signIn(emailController.text, pwdController.text);
-                  },
-                  child: Text('Connexion',
-                      style: TextStyle(
-                          fontSize: heigth / 25, color: Colors.white)),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.purple),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: heigth / 10)))),
-            ],
-          )
         ],
       ),
     );
