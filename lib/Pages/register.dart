@@ -12,6 +12,9 @@ class _RegisterState extends State<Register> {
   var pwdController = TextEditingController();
   var confirmpwdController = TextEditingController();
   var nameController = TextEditingController();
+  var confirdPwdController = TextEditingController();
+  bool _isObscure1 = true;
+    bool _isObscure2 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: _height,
+          // height: _height,
           width: _width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,22 +46,21 @@ class _RegisterState extends State<Register> {
       height: heigth / 3.5,
       width: width,
       decoration: BoxDecoration(
-          color: Colors.purple[400],
-          ),
+        color: Colors.purple[400],
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/msg2.png"),
-                fit: BoxFit.contain,
+                image: AssetImage("assets/images/whitemsg.png"),
+                fit: BoxFit.fill,
               ),
               color: Colors.purple[400],
             ),
             height: heigth / 4,
-            width: width / 2.5,
+            width: width / 2,
           ),
         ],
       ),
@@ -72,6 +74,12 @@ class _RegisterState extends State<Register> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          _sizedBox(heigth / 25),
+          Text(
+            "Inscrivez - vous",
+            style:
+                TextStyle(fontWeight: FontWeight.w600, fontSize: heigth / 35),
+          ),
           _sizedBox(heigth / 25),
           CTextfiel(
             inputAction: TextInputAction.next,
@@ -93,16 +101,32 @@ class _RegisterState extends State<Register> {
             controller: pwdController,
             inputAction: TextInputAction.next,
             prefix: Icon(Icons.vpn_key),
-            obscureText: true,
+            suffix: IconButton(
+                icon:
+                    Icon(_isObscure1 ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _isObscure1 = !_isObscure1;
+                  });
+                }),
+            obscureText: _isObscure1,
             keybardType: TextInputType.visiblePassword,
             hint: 'Entrez votre mot de passe',
           ),
           _sizedBox(heigth / 25),
           CTextfiel(
-            controller: pwdController,
+            controller: confirdPwdController,
             inputAction: TextInputAction.done,
             prefix: Icon(Icons.vpn_key),
-            obscureText: true,
+            suffix: IconButton(
+                icon:
+                    Icon(_isObscure2 ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    _isObscure2 = !_isObscure2;
+                  });
+                }),
+            obscureText: _isObscure2,
             keybardType: TextInputType.visiblePassword,
             hint: 'Confirmez votre mot de passe',
           ),

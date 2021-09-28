@@ -56,13 +56,13 @@ class _LoginState extends State<Login> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/msg2.png"),
-                fit: BoxFit.contain,
+                image: AssetImage("assets/images/whitemsg.png"),
+                fit: BoxFit.fill,
               ),
               color: Colors.purple[400],
             ),
             height: heigth / 4,
-            width: width / 2.5,
+            width: width / 2,
           ),
         ],
       ),
