@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:whosapp/Configs/functions.dart';
 import 'package:whosapp/Models/users.dart';
+import 'package:whosapp/Pages/messaging.dart';
 import 'package:whosapp/Services/db_services.dart';
 
 class Contacts extends StatefulWidget {
@@ -30,13 +32,16 @@ class _ContactsState extends State<Contacts> {
                     itemBuilder: (ctx, i) {
                       final user = users[i];
                       return ListTile(
+                          onTap: () {
+                            navigateToNextPage(context, Messaging(user: user));
+                          },
                           leading: Container(
                             alignment: Alignment.center,
                             height: _height / 15,
                             width: _height / 15,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.grey,
+                              color: Colors.grey.withOpacity(0.5),
                             ),
                             child: Icon(Icons.person),
                           ),
